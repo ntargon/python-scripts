@@ -1,3 +1,30 @@
+[project]
+name = "python-scripts"
+version = "0.1.0"
+description = "UV script mode compatible Python scripts"
+requires-python = ">=3.11"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_any_unimported = false
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+check_untyped_defs = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = "colorama.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "matplotlib.*"
+ignore_missing_imports = true
+
 [tool.ruff]
 # Python version to target
 target-version = "py311"
