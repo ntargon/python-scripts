@@ -12,7 +12,7 @@ def start_echo_server(port: int) -> NoReturn:
     """Start a TCP echo server on the specified port.
 
     Args:
-        port: The port number to listen on
+        port: The port number to listen on.
     """
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(("0.0.0.0", port))
