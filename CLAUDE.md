@@ -121,8 +121,65 @@ uvは自動的に：
 # ここからスクリプトの本体
 ```
 
+## コードフォーマット
+
+このリポジトリでは、コード品質を保つために[ruff](https://github.com/astral-sh/ruff)を使用しています。ruffは、Rust製の超高速なPythonリンター＆フォーマッターです。
+
+### ruffの特徴
+
+- **高速**: Rustで書かれており、従来のツールより10〜100倍高速
+- **オールインワン**: フォーマット＋リント機能を統合
+- **設定不要**: デフォルトで適切な設定が動作
+- **uvと同じAstral製**: uvとの相性が良い
+
+### コードのフォーマット
+
+```bash
+# すべてのPythonファイルをフォーマット
+uvx ruff format .
+
+# 特定のファイルをフォーマット
+uvx ruff format script.py
+```
+
+### コードのリント（静的解析）
+
+```bash
+# すべてのPythonファイルをチェック
+uvx ruff check .
+
+# 自動修正可能な問題を修正
+uvx ruff check --fix .
+
+# 特定のファイルをチェック
+uvx ruff check script.py
+```
+
+### pre-commitフックの使用
+
+コミット前に自動的にruffを実行するには、pre-commitフックを設定します：
+
+```bash
+# pre-commitのインストール
+uvx pre-commit install
+
+# 手動で実行
+uvx pre-commit run --all-files
+```
+
+これにより、git commitを実行する際に自動的にコードがフォーマット・チェックされます。
+
+### 設定ファイル
+
+ruffの設定は`pyproject.toml`に記述されています。主な設定：
+
+- **行の長さ**: 88文字（Black互換）
+- **Pythonバージョン**: 3.11以上
+- **有効なルール**: pycodestyle、pyflakes、isort、pep8-naming、pyupgrade等
+
 ## 参考リンク
 
 - [uv公式ドキュメント](https://docs.astral.sh/uv/)
 - [PEP 723 - Inline script metadata](https://peps.python.org/pep-0723/)
 - [uvスクリプトモードのドキュメント](https://docs.astral.sh/uv/guides/scripts/)
+- [ruff公式ドキュメント](https://docs.astral.sh/ruff/)

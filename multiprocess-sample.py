@@ -6,20 +6,20 @@
 # Run the server first, then run the client
 
 
-from multiprocessing import Process, Lock, Queue, Pool, Manager
-from time import sleep, time
 import random
 import socket
-from colorama import init, Fore, Style
-from pprint import pprint
+from multiprocessing import Manager, Pool
+from time import sleep, time
+
+from colorama import Fore, Style, init
 from matplotlib import pyplot as plt
 
 
 def f(t):
     name, s, l0, l1 = t
     start_time = time()
-    N = random.randint(1, 10)
-    for i in range(N):
+    n = random.randint(1, 10)
+    for i in range(n):
         l0.acquire()
 
         greetings = [
@@ -67,7 +67,7 @@ def main():
                 f, [(f"p{i}", s, l0, l1) for i in range(task_num)]
             )
 
-            for i, result in enumerate(results):
+            for _i, result in enumerate(results):
                 name, start_time, end_time = result
                 elapsed_time = end_time - start_time
                 print(f"{name} took {elapsed_time:.2f} seconds")
@@ -75,8 +75,10 @@ def main():
 
         # Print the finished order
         for name, start_time, end_time in finished_order:
+            elapsed = end_time - start_time
             print(
-                f"{name} took {end_time - start_time:.2f} seconds. (start: {start_time:.2f}, end: {end_time:.2f})"
+                f"{name} took {elapsed:.2f} seconds. "
+                f"(start: {start_time:.2f}, end: {end_time:.2f})"
             )
 
         # Plotting the execution times
