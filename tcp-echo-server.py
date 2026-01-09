@@ -32,7 +32,7 @@ def start_echo_server(port: int) -> NoReturn:
 
 
 def main() -> None:
-    """Main entry point for the TCP echo server."""
+    """Main entry point for the TCP echo server application."""
     if len(sys.argv) != 2:
         print("Usage: python tcp-echo-server.py <port>")
         sys.exit(1)
