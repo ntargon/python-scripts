@@ -5,17 +5,25 @@
 
 # Run the server first, then run the client
 
-
 import random
 import socket
 from multiprocessing import Manager, Pool
 from time import sleep, time
+from typing import Any
 
 from colorama import Fore, Style, init
 from matplotlib import pyplot as plt
 
 
-def f(t):
+def f(t: tuple[str, socket.socket, Any, Any]) -> tuple[str, float, float]:
+    """Process function that sends messages to the echo server.
+
+    Args:
+        t: Tuple containing (name, socket, lock0, lock1)
+
+    Returns:
+        Tuple of (name, start_time, end_time)
+    """
     name, s, l0, l1 = t
     start_time = time()
     n = random.randint(1, 10)
@@ -49,7 +57,8 @@ def f(t):
     return name, start_time, end_time
 
 
-def main():
+def main() -> None:
+    """Main function demonstrating multiprocess socket communication."""
     with Manager() as manager:
         l0 = manager.Lock()
         l1 = manager.Lock()
@@ -60,7 +69,7 @@ def main():
         pool_num = 3
         task_num = 10
 
-        finished_order = []
+        finished_order: list[tuple[str, float, float]] = []
 
         with Pool(pool_num) as pool:
             results = pool.imap_unordered(
